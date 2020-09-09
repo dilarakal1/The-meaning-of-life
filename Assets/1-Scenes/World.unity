@@ -123,7 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!43 &557190587
+--- !u!43 &98168979
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -540,8 +540,8 @@ MonoBehaviour:
   - {x: 0.5139756, y: 0.496881, z: 0}
   - {x: -0.4835019, y: 0.4886322, z: 0}
   m_ShapePathHash: 1040915033
-  m_Mesh: {fileID: 557190587}
-  m_InstanceId: -3544
+  m_Mesh: {fileID: 98168979}
+  m_InstanceId: 17344
 --- !u!1 &1526627489
 GameObject:
   m_ObjectHideFlags: 0
@@ -552,6 +552,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1526627490}
   - component: {fileID: 1526627491}
+  - component: {fileID: 1526627492}
   m_Layer: 0
   m_Name: Art
   m_TagString: Player
@@ -624,6 +625,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1526627492
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526627489}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5d325341c11c4c540a0912ce1e1fb356, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1821150855
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,7 +837,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2078444633}
-  - component: {fileID: 2078444636}
   - component: {fileID: 2078444635}
   - component: {fileID: 2078444634}
   - component: {fileID: 2078444637}
@@ -883,33 +902,14 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 45
-  m_LinearDrag: 1
+  m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
   m_Constraints: 4
---- !u!95 &2078444636
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2078444632}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5d325341c11c4c540a0912ce1e1fb356, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &2078444637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -922,13 +922,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6546ec37f795264479a583dc2bf64730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 1526627492}
   speed: 5
-  jumpForce: 1
+  jumpForce: 200
   maxJumps: 1
   currentJumps: 0
-  groundCheck: {fileID: 1112077987}
-  groundDistance: 0.2
-  groundMask:
+  groundCheckPosition: {fileID: 1112077987}
+  groundCheckRadius: 0.2
+  validLayers:
     serializedVersion: 2
     m_Bits: 256
   isGrounded: 0

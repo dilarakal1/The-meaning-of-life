@@ -5,14 +5,16 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D rb;
+    [SerializeField] Animator animator;
+
     [SerializeField] float speed = 1;
     [SerializeField] float jumpForce = 1;
     [SerializeField] float maxJumps = 1;
     [SerializeField] float currentJumps = 1;
 
-    [SerializeField] Transform groundCheck = default;
-    [SerializeField] float groundDistance = 0.4f;
-    [SerializeField] LayerMask groundMask = default;
+    [SerializeField] Transform groundCheckPosition = default;
+    [SerializeField] float groundCheckRadius = 0.4f;
+    [SerializeField] LayerMask validLayers = default;
     [SerializeField] bool isGrounded = false;
 
     [SerializeField] SpriteRenderer sRenderer = default;
@@ -24,27 +26,47 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Update()
     {
-        
+        Move();
+        Jump();
+
+        animator.SetBool("Falling", !isGrounded);
     }
 
-    private void FixedUpdate()
+    private void Move()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundDistance, groundMask);
-        if (isGrounded) currentJumps = maxJumps;
-
-        var direction = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(direction, rb.velocity.y) * speed;
-        sRenderer.flipX = direction > 0;
-        if(Input.GetButtonDown("Jump") && currentJumps > 0)
+        Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
+        transform.position += direction * speed * Time.deltaTime;
+        
+        if (Mathf.Abs(direction.x) > 0.01)
         {
+            sRenderer.flipX = direction.x > 0;
+            animator.SetBool("Walk", true);
+        }
+        else
+        {
+            animator.SetBool("Walk", false);
+        }
+    }
+
+    void Jump()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheckPosition.position, groundCheckRadius, validLayers);
+        if (isGrounded && rb.velocity.y <= 0) currentJumps = maxJumps;
+
+        if (Input.GetButtonDown("Jump") && currentJumps > 0)
+        {
+            animator.SetTrigger("Jump");
+            if(rb.velocity.y < 0)
+            {
+                rb.velocity = Vector3.zero;
+            }
+            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             currentJumps--;
-            Debug.Log("Jump");
-            rb.velocity = new Vector2(rb.velocity.x, Mathf.Sqrt(jumpForce * -2 * -9.81f * rb.gravityScale));
         }
     }
 
     private void OnDrawGizmos()
     {
-        UnityEditor.Handles.DrawWireDisc(groundCheck.position, Vector3.back, groundDistance);
+        UnityEditor.Handles.DrawWireDisc(groundCheckPosition.position, Vector3.back, groundCheckRadius);
     }
 }
