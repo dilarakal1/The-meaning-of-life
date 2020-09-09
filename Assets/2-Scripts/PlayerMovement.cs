@@ -28,8 +28,16 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         Jump();
-
+        TempAttackMethodForTesting();
         animator.SetBool("Falling", !isGrounded);
+    }
+
+    void TempAttackMethodForTesting()
+    {
+        if (Input.GetMouseButtonDown(0)) animator.SetTrigger("Slice");
+        if (Input.GetMouseButtonDown(1)) animator.SetTrigger("Punch");
+
+        animator.SetBool("Run", Input.GetKey(KeyCode.LeftShift));
     }
 
     private void Move()
