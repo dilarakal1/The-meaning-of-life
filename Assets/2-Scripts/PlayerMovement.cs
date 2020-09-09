@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] float speed = 1;
     [SerializeField] float jumpForce = 1;
+    [SerializeField] float dashForce = 1;
     [SerializeField] float maxJumps = 1;
     [SerializeField] float currentJumps = 1;
 
@@ -27,7 +28,9 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         Move();
+        Dash();
         Jump();
+        
         TempAttackMethodForTesting();
         animator.SetBool("Falling", !isGrounded);
     }
@@ -53,6 +56,18 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             animator.SetBool("Walk", false);
+        }
+    }
+
+    void Dash()
+    {
+        if(Input.GetAxisRaw("Horizontal") != 0)
+        {
+            float direction = Input.GetAxisRaw("Horizontal") / Mathf.Abs(Input.GetAxisRaw("Horizontal"));
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                rb.AddForce(new Vector2(dashForce * direction, 0), ForceMode2D.Impulse);
+            }
         }
     }
 
