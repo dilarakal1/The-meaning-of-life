@@ -20,19 +20,42 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] SpriteRenderer sRenderer = default;
 
-    private void Awake()
+    void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         if (rb == null) Debug.LogError("Rigidbody for " + this.name + " not found");
     }
-    private void Update()
+
+    bool jump = false;
+    bool dash = false;
+    float direction = 0;
+    void Update()
+    {
+        Inputs();
+
+        TempAttackMethodForTesting();
+        animator.SetBool("Falling", !isGrounded);
+    }
+
+    void FixedUpdate()
     {
         Move();
         Dash();
         Jump();
-        
-        TempAttackMethodForTesting();
-        animator.SetBool("Falling", !isGrounded);
+    }
+    
+    void Inputs()
+    {
+        direction = Input.GetAxis("Horizontal");
+
+        if(Input.GetButtonDown("Jump"))
+        {
+            jump = true;
+        }
+        if(Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            dash = true;
+        }
     }
 
     void TempAttackMethodForTesting()
@@ -44,13 +67,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Move()
-    {
-        Vector3 direction = new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
-        transform.position += direction * speed * Time.deltaTime;
-        
-        if (Mathf.Abs(direction.x) > 0.01)
+    {   
+        if (Mathf.Abs(direction) > 0.01)
         {
-            sRenderer.flipX = direction.x > 0;
+            sRenderer.flipX = direction > 0;
+            rb.AddForce(new Vector2(direction * speed, 0), ForceMode2D.Impulse);
+
             animator.SetBool("Walk", true);
         }
         else
@@ -61,14 +83,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Dash()
     {
-        float direction = System.Convert.ToInt32(sRenderer.flipX) * 2 - 1;
-        if (Input.GetAxisRaw("Horizontal") != 0)
+        float dashDirection = System.Convert.ToInt32(sRenderer.flipX) * 2 - 1;
+        if (dash)
         {
-            direction = Input.GetAxisRaw("Horizontal") / Mathf.Abs(Input.GetAxisRaw("Horizontal"));
-        }
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            rb.AddForce(new Vector2(dashForce * direction, 0), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(dashForce * dashDirection, 0), ForceMode2D.Impulse);
+            dash = false;
         }
     }
 
@@ -77,15 +96,16 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheckPosition.position, groundCheckRadius, validLayers);
         if (isGrounded && rb.velocity.y <= 0) currentJumps = maxJumps;
 
-        if (Input.GetButtonDown("Jump") && currentJumps > 0)
+        if (jump && currentJumps > 0)
         {
             animator.SetTrigger("Jump");
             if(rb.velocity.y < 0)
             {
-                rb.velocity = Vector3.zero;
+                rb.velocity = new Vector2(rb.velocity.x, 0);
             }
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             currentJumps--;
+            jump = false;
         }
     }
 
