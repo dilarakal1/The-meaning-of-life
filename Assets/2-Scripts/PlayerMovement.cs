@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     {
         direction = Input.GetAxis("Horizontal");
 
-        if(Input.GetButtonDown("Jump") && currentJumps > 0)
+        if (Input.GetButtonDown("Jump") && currentJumps > 0)
         {
             jump = true;
         }
@@ -93,10 +93,16 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    [SerializeField] float longerJumpForce = default;
+
     void Jump()
     {
+        
+
         isGrounded = Physics2D.OverlapCircle(groundCheckPosition.position, groundCheckRadius, validLayers);
         if (isGrounded && rb.velocity.y <= 0) currentJumps = maxJumps;
+
+        if (!isGrounded && Input.GetButton("Jump") && rb.velocity.y > 1) rb.AddForce(new Vector2(0, longerJumpForce));
 
         if (jump)
         {
