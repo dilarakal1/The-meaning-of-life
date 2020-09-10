@@ -102,7 +102,7 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheckPosition.position, groundCheckRadius, validLayers);
         if (isGrounded && rb.velocity.y <= 0) currentJumps = maxJumps;
 
-        if (!isGrounded && Input.GetButton("Jump") && rb.velocity.y > 1) rb.AddForce(new Vector2(0, longerJumpForce));
+        if (!isGrounded && Input.GetButton("Jump") && rb.velocity.y > 0.85f) rb.AddForce(new Vector2(0, longerJumpForce));
 
         if (jump)
         {
