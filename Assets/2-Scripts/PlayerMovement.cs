@@ -81,9 +81,19 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    [SerializeField] float longerDashForce = default;
+    [SerializeField] float dashHoldSpeedCancel = 10;
     void Dash()
     {
         float dashDirection = System.Convert.ToInt32(sRenderer.flipX) * 2 - 1;
+
+        if (Input.GetKey(KeyCode.LeftControl) && !Input.GetButton("Jump") && Mathf.Abs(rb.velocity.x) > dashHoldSpeedCancel)
+        {
+            rb.AddForce(new Vector2(longerDashForce * dashDirection, 0));
+            rb.velocity = new Vector2(rb.velocity.x, 0.5f);
+        }
+            
+
         if (dash)
         {
             rb.velocity = Vector2.zero;
@@ -94,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     [SerializeField] float longerJumpForce = default;
-
+    [SerializeField] float jumpHoldSpeedCancel = 0.85f;
     void Jump()
     {
         
@@ -102,7 +112,7 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheckPosition.position, groundCheckRadius, validLayers);
         if (isGrounded && rb.velocity.y <= 0) currentJumps = maxJumps;
 
-        if (!isGrounded && Input.GetButton("Jump") && rb.velocity.y > 0.85f) rb.AddForce(new Vector2(0, longerJumpForce));
+        if (!isGrounded && Input.GetButton("Jump") && rb.velocity.y > jumpHoldSpeedCancel) rb.AddForce(new Vector2(0, longerJumpForce));
 
         if (jump)
         {
