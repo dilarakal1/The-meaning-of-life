@@ -8,6 +8,9 @@ TextureImporter:
   - first:
       213: -6138669107613131536
     second: Main_character_walking_1
+  - first:
+      213: 5571160610340568462
+    second: Main_character_walking_2
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -132,6 +135,27 @@ TextureImporter:
       bones: []
       spriteID: 0fc1e0f78f01fcaa0800000000000000
       internalID: -6138669107613131536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main_character_walking_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8d7ffdce0db05d40800000000000000
+      internalID: 5571160610340568462
       vertices: []
       indices: 
       edges: []
