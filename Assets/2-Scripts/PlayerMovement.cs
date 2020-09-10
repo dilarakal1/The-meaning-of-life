@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     Rigidbody2D rb;
-    [SerializeField] Animator animator;
+    [SerializeField] Animator animator = default;
 
     [SerializeField] float speed = 1;
     [SerializeField] float jumpForce = 1;
@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
     {
         direction = Input.GetAxis("Horizontal");
 
-        if(Input.GetButtonDown("Jump"))
+        if(Input.GetButtonDown("Jump") && currentJumps > 0)
         {
             jump = true;
         }
@@ -86,7 +86,9 @@ public class PlayerMovement : MonoBehaviour
         float dashDirection = System.Convert.ToInt32(sRenderer.flipX) * 2 - 1;
         if (dash)
         {
+            rb.velocity = Vector2.zero;
             rb.AddForce(new Vector2(dashForce * dashDirection, 0), ForceMode2D.Impulse);
+            animator.SetTrigger("Dash");
             dash = false;
         }
     }
@@ -96,7 +98,7 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(groundCheckPosition.position, groundCheckRadius, validLayers);
         if (isGrounded && rb.velocity.y <= 0) currentJumps = maxJumps;
 
-        if (jump && currentJumps > 0)
+        if (jump)
         {
             animator.SetTrigger("Jump");
             if(rb.velocity.y < 0)
