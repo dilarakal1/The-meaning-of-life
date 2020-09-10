@@ -61,13 +61,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Dash()
     {
-        if(Input.GetAxisRaw("Horizontal") != 0)
+        float direction = System.Convert.ToInt32(sRenderer.flipX) * 2 - 1;
+        if (Input.GetAxisRaw("Horizontal") != 0)
         {
-            float direction = Input.GetAxisRaw("Horizontal") / Mathf.Abs(Input.GetAxisRaw("Horizontal"));
-            if (Input.GetKeyDown(KeyCode.LeftControl))
-            {
-                rb.AddForce(new Vector2(dashForce * direction, 0), ForceMode2D.Impulse);
-            }
+            direction = Input.GetAxisRaw("Horizontal") / Mathf.Abs(Input.GetAxisRaw("Horizontal"));
+        }
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            rb.AddForce(new Vector2(dashForce * direction, 0), ForceMode2D.Impulse);
         }
     }
 
