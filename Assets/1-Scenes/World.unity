@@ -1275,7 +1275,7 @@ MonoBehaviour:
   animator: {fileID: 1526627492}
   speed: 23
   jumpForce: 200
-  dashForce: 2000
+  dashForce: 900
   maxJumps: 1
   currentJumps: 0
   groundCheckPosition: {fileID: 1112077987}
@@ -1285,4 +1285,7 @@ MonoBehaviour:
     m_Bits: 256
   isGrounded: 0
   sRenderer: {fileID: 1526627491}
+  longerDashForce: 500
+  dashHoldSpeedCancel: 8
   longerJumpForce: 1400
+  jumpHoldSpeedCancel: 0.85

@@ -67,7 +67,9 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Move()
-    {   
+    {
+        if (Input.GetKey(KeyCode.LeftControl) && !Input.GetButton("Jump") && Mathf.Abs(rb.velocity.x) > dashHoldSpeedCancel) return;
+
         if (Mathf.Abs(direction) > 0.01)
         {
             sRenderer.flipX = direction > 0;
@@ -87,19 +89,24 @@ public class PlayerMovement : MonoBehaviour
     {
         float dashDirection = System.Convert.ToInt32(sRenderer.flipX) * 2 - 1;
 
-        if (Input.GetKey(KeyCode.LeftControl) && !Input.GetButton("Jump") && Mathf.Abs(rb.velocity.x) > dashHoldSpeedCancel)
-        {
-            rb.AddForce(new Vector2(longerDashForce * dashDirection, 0));
-            rb.velocity = new Vector2(rb.velocity.x, 0.5f);
-        }
-            
-
         if (dash)
         {
             rb.velocity = Vector2.zero;
             rb.AddForce(new Vector2(dashForce * dashDirection, 0), ForceMode2D.Impulse);
             animator.SetTrigger("Dash");
             dash = false;
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl) && !Input.GetButton("Jump") && Mathf.Abs(rb.velocity.x) > dashHoldSpeedCancel)
+        {
+            rb.AddForce(new Vector2(longerDashForce * dashDirection, 0));
+            rb.gravityScale = 0;
+            animator.SetBool("Dashing", true);
+        }
+        else
+        {
+            rb.gravityScale = 2.8f;
+            animator.SetBool("Dashing", false);
         }
     }
 
