@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        if (Input.GetKey(KeyCode.LeftControl) && !Input.GetButton("Jump") && Mathf.Abs(rb.velocity.x) > dashHoldSpeedCancel) return;
+        if (Input.GetKey(KeyCode.LeftControl) && Mathf.Abs(rb.velocity.x) > dashHoldSpeedCancel) return;
 
         if (Mathf.Abs(direction) > 0.01)
         {
@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
             dash = false;
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && !Input.GetButton("Jump") && Mathf.Abs(rb.velocity.x) > dashHoldSpeedCancel)
+        if (Input.GetKey(KeyCode.LeftControl) && Mathf.Abs(rb.velocity.x) > dashHoldSpeedCancel)
         {
             rb.AddForce(new Vector2(longerDashForce * dashDirection, 0));
             rb.gravityScale = 0;

@@ -1273,7 +1273,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1526627492}
-  speed: 23
+  speed: 25
   jumpForce: 200
   dashForce: 900
   maxJumps: 1
@@ -1286,6 +1286,6 @@ MonoBehaviour:
   isGrounded: 0
   sRenderer: {fileID: 1526627491}
   longerDashForce: 500
-  dashHoldSpeedCancel: 8
+  dashHoldSpeedCancel: 9
   longerJumpForce: 1400
   jumpHoldSpeedCancel: 0.85
