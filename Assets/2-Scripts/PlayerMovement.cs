@@ -134,8 +134,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {
         UnityEditor.Handles.DrawWireDisc(groundCheckPosition.position, Vector3.back, groundCheckRadius);
-    }
+    }*/
 }
