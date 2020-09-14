@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
         {
             jump = true;
         }
-        if(Input.GetKeyDown(KeyCode.LeftControl))
+        if(Input.GetButtonDown("Fire2"))
         {
             dash = true;
         }
@@ -60,15 +60,12 @@ public class PlayerMovement : MonoBehaviour
 
     void TempAttackMethodForTesting()
     {
-        if (Input.GetMouseButtonDown(0)) animator.SetTrigger("Slice");
-        if (Input.GetMouseButtonDown(1)) animator.SetTrigger("Punch");
-
-        animator.SetBool("Run", Input.GetKey(KeyCode.LeftShift));
+        if (Input.GetButtonDown("Fire1")) animator.SetTrigger("Slice");
     }
 
     private void Move()
     {
-        if (Input.GetKey(KeyCode.LeftControl) && Mathf.Abs(rb.velocity.x) > dashHoldSpeedCancel) return;
+        if (Input.GetButton("Fire2") && Mathf.Abs(rb.velocity.x) > dashHoldSpeedCancel) return;
 
         if (Mathf.Abs(direction) > 0.01)
         {
@@ -97,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
             dash = false;
         }
 
-        if (Input.GetKey(KeyCode.LeftControl) && Mathf.Abs(rb.velocity.x) > dashHoldSpeedCancel)
+        if (Input.GetButton("Fire2") && Mathf.Abs(rb.velocity.x) > dashHoldSpeedCancel)
         {
             rb.AddForce(new Vector2(longerDashForce * dashDirection, 0));
             rb.gravityScale = 0;
