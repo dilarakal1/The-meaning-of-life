@@ -7,14 +7,14 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     [SerializeField] Animator animator = default;
 
-    [SerializeField] float speed = 1;
-    [SerializeField] float jumpForce = 1;
+    [SerializeField] float speed = 75;
+    [SerializeField] float jumpForce = 1500;
     [SerializeField] float dashForce = 1;
     [SerializeField] float maxJumps = 1;
     [SerializeField] float currentJumps = 1;
 
     [SerializeField] Transform groundCheckPosition = default;
-    [SerializeField] float groundCheckRadius = 0.4f;
+    [SerializeField] float groundCheckRadius = 0.05f;
     [SerializeField] LayerMask validLayers = default;
     [SerializeField] bool isGrounded = false;
 
@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    [SerializeField] float longerDashForce = default;
+    [SerializeField] float longerDashForce = 1000;
     [SerializeField] float dashHoldSpeedCancel = 10;
     void Dash()
     {
@@ -105,13 +105,13 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            rb.gravityScale = 2.8f;
+            rb.gravityScale = 15f;
             animator.SetBool("Dashing", false);
         }
     }
 
-    [SerializeField] float longerJumpForce = default;
-    [SerializeField] float jumpHoldSpeedCancel = 0.85f;
+    [SerializeField] float longerJumpForce = 8750;
+    [SerializeField] float jumpHoldSpeedCancel = 5f;
     void Jump()
     {
         
