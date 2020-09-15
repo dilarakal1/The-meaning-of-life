@@ -111,8 +111,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float jumpHoldSpeedCancel = 5f;
     void Jump()
     {
-        
-
         isGrounded = Physics2D.OverlapCircle(groundCheckPosition.position, groundCheckRadius, validLayers);
         if (isGrounded && rb.velocity.y <= 0) currentJumps = maxJumps;
 
@@ -131,8 +129,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    /*private void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         UnityEditor.Handles.DrawWireDisc(groundCheckPosition.position, Vector3.back, groundCheckRadius);
-    }*/
+    }
 }
