@@ -40,10 +40,10 @@ public class Health : MonoBehaviour
         if (!hitSound.isPlaying)
             hitSound.Play();
     }
-    public void Death()
+    public virtual void Death()
     {
         alive = false;
-        //Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
 
 }

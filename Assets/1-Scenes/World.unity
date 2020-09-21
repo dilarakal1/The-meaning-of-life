@@ -759,6 +759,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 10
+  alive: 0
+  hitSound: {fileID: 0}
 --- !u!114 &2078444637
 MonoBehaviour:
   m_ObjectHideFlags: 0
