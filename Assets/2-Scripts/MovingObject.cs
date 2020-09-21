@@ -68,7 +68,6 @@ public class MovingObject : MonoBehaviour
         }
 
         target = locations[locationIndex];
-
     }
 
     private void OnTriggerEnter(Collider other)

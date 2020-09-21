@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hurtful : MonoBehaviour
+public class Hurtful : Weapon
 {
+    PlayerHealth player = default;
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Destroy(collider.gameObject);
+        player = collider.GetComponent<PlayerHealth>();
+        Attack();
+    }
+
+    protected override void Attack()
+    {
+        player.CurrentHealth -= damage;
     }
 }
